@@ -87,7 +87,7 @@ test.before(async t => {
 	await makeFixtures();
 });
 
-test('detectPatterns() should throw for invalid domain', t => {
+test('detectPatterns() should throw for invalid domains', t => {
   t.throws(() => detectPatterns('.eth'), { message: 'invalid domain: .eth' });
   t.throws(() => detectPatterns('a.b.eth'), { message: 'invalid domain: a.b.eth' });
 });

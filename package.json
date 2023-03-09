@@ -1,7 +1,7 @@
 {
-  "name": "nsu",
+  "name": "rareid-utils",
   "version": "0.1.0",
-  "description": "Name Service Utilities",
+  "description": "Utilities for Rare.ID",
   "scripts": {
     "build": "del-cli dist && tsc",
     "prepack": "npm run build",
@@ -18,7 +18,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/marswong/nsu.git"
+    "url": "git+https://github.com/marswong/rareid-utils.git"
   },
   "keywords": [
     "domain",
@@ -28,7 +28,7 @@
   "author": "Mars Wong <marswong618@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/marswong/nsu/issues"
+    "url": "https://github.com/marswong/rareid-utils/issues"
   },
   "ava": {
     "extensions": {

@@ -1,81 +1,5 @@
 type TMatcherFn = (name: string) => boolean;
 
-function swap<T = any>(a: T, b: T) {
-  let t = a;
-  a = b;
-  b = t;
-}
-
-function patternMatching(pattern: string, value: string): boolean {
-  let countA = 0;
-  let countB = 0;
-  for (let i = 0; i < pattern.length; i += 1) {
-    if (pattern[i] === 'a') {
-      countA += 1;
-    } else {
-      countB += 1;
-    }
-  }
-  if (countA < countB) {
-    swap<number>(countA, countB);
-    let tmp = '';
-    for (let i = 0; i < pattern.length; i += 1) {
-      if (pattern[i] === 'a') {
-        tmp += 'b';
-      } else {
-        tmp += 'a';
-      }
-    }
-    pattern = tmp;
-  }
-  if (value.length == 0) {
-    return countB === 0;
-  }
-  if (pattern.length == 0) {
-    return false;
-  }
-  for (let lenA = 0; countA * lenA <= value.length; lenA += 1) {
-    let rest = value.length - countA * lenA;
-    if ((countB === 0 && rest === 0) || (countB != 0 && rest % countB === 0)) {
-      let lenB = 0;
-      if (countB === 0) {
-        lenB = 0;
-      } else {
-        lenB = rest / countB;
-      }
-      let pos = 0;
-      let correct = true;
-      let valueA = '';
-      let valueB = '';
-      for (let i = 0; i < pattern.length; i += 1) {
-        if (pattern[i] === 'a') {
-          let sub = value.substring(pos, pos + lenA); // TODO
-          if (valueA.length === 0) {
-            valueA = sub;
-          } else if (valueA !== sub) {
-            correct = false;
-            break;
-          }
-          pos += lenA;
-        } else {
-          let sub = value.substring(pos, pos + lenB); // TODO
-          if (valueB.length === 0) {
-            valueB = sub;
-          } else if (valueB !== sub) {
-            correct = false;
-            break;
-          }
-          pos += lenB;
-        }
-      }
-      if (correct && valueA !== valueB) {
-        return true;
-      }
-    }
-  }
-  return false;
-}
-
 const patternMatcherMap: Record<string, TMatcherFn> = {
   // 3d
   '999': s => /^\d{3}$/.test(s),
@@ -188,8 +112,6 @@ const patternMatcherMap: Record<string, TMatcherFn> = {
   '3-hex': s => /^0x[\da-f]{3}$/.test(s),
 };
 
-const regularPatterns: string[] = [];
-
 export function detectPatterns(domain: string): Set<string> {
   const parts = domain.split('.')
   if (parts.length !== 2 || !parts[0]) {
@@ -203,12 +125,6 @@ export function detectPatterns(domain: string): Set<string> {
       patternSet.add(pattern);
     }
   }
-
-  regularPatterns.forEach(pattern => {
-    if (patternMatching(pattern, name)) {
-      patternSet.add(pattern);
-    }
-  });
 
   return patternSet;
 }
