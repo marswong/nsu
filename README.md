@@ -22,7 +22,7 @@ console.log(detectPatterns('0311.eth'));
 
 ### detectPatterns(domain)
 
-> Currently only numeric pattern (except Rare4D) defined at [Rare.ID](https://rare.id/search?tab=category) are supported
+> Currently only numeric pattern (except rare4d and a-share-code) defined at [Rare.ID](https://rare.id/search?tab=category) are supported
 
 Returns a set of detected patterns of the given domain.
 
